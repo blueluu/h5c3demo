@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>优惠券样式集合</title>
+</head>
+<style>
+	body{
+		padding: 0;
+		margin: 0;
+	}
+	.wrap{
+		width:10px;
+		height:10px;
+		border-radius: 10px;
+		border:1px solid black;
+		margin:100px;
+		-webkit-animation-timing-function:ease-in-out;
+		-webkit-animation-name:wrapBtn;
+		-webkit-animation-duration:2700ms;
+		-webkit-animation-iteration-count:infinite;
+		-webkit-animation-direction:alternate;
+		background-color: rgba(59,235,235,0.3);
+	}
+	@-webkit-keyframes wrapBtn{
+		0%{
+			opacity: 0.2;
+			box-shadow: 0 1px 2px rgba(255,255,255,0.2);
+			border:1px solid rgba(59,235,235,0.2);
+		}
+		100%{
+			opacity: 1;
+			border:1px solid rgba(59,235,235,1);
+			box-shadow: 0 1px 30px rgba(59,255,255,1);
+		}
+	}
+</style>
+<body>
+	<div class="wrap"></div>	
+</body>
+</html>

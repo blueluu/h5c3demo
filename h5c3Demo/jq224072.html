@@ -1,0 +1,176 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无缝轮播初级-jq22.com</title>
+<script src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<style>
+ .continer ul {
+	width:2500px;
+	margin:0;
+	padding:0;
+	list-style:none;
+	position:absolute;
+}
+.continer ul li {
+	float:left;
+	margin:0;
+	padding:0;
+	background:#ffff00;
+	width:1200px;
+	height:250px;
+	display:none;
+}
+.continer ul li:nth-child(1) {
+	background:#000080;
+}
+.continer ul li:nth-child(2) {
+	background:#0BB20C;
+}
+.continer ul li:nth-child(3) {
+	background:#9B9B9B;
+}
+.continer ul li:nth-child(4) {
+	background:#007aff;
+}
+.continer ul li:nth-child(5) {
+	background:#F00;
+}
+.dot {
+	position:absolute;
+	bottom:30px;
+	right:50px;
+}
+.dot span {
+	display:inline-block;
+	width:10px;
+	height:10px;
+	border-radius:50%;
+	margin-left:20px;
+	border:1px solid #ccc;
+	background:#fff;
+}
+.dot span.active {
+	background:#000000;
+}
+.continer button {
+	width:40px;
+	height:40px;
+	background:#000;
+	opacity:0.5;
+	text-align:center;
+	line-height:40px;
+	color:#fff;
+	border:none;
+	display:none;
+}
+.continer .prev {
+	position:absolute;
+	left:0px;
+	top:50%;
+	margin-top:-20px;
+	z-index:5;
+}
+.continer .next {
+	position:absolute;
+	right:0px;
+	top:50%;
+	margin-top:-20px;
+	z-index:5;
+}
+</style>
+</head>
+<body>
+<div class="continer">
+    <button type="button" class="prev">《</button>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <button type="button" class="next">》</button>
+    <div class="dot">
+
+    </div>
+</div><script>
+function Carousel() {
+    this.container = $(".continer");
+    this.ul = $(".continer ul");
+    this.item = $(".continer li");
+    this.w = this.item.width() * this.item.length;
+    this.ul.css("width", this.item.width() * this.item.length)
+    this.num = 0;
+    this.timer = null;
+    this.dot = $(".dot");
+    this.prev = $(".prev");
+    this.next = $(".next")
+}
+Carousel.prototype.init = function() {
+    this.item.eq(0).css("display", "block")
+    var str = "";
+    for (var i = 0; i < this.item.length; i++) {
+        str += "<span></span>"
+    }
+    this.dot.html(str)
+    this.dot.find("span").eq(0).addClass("active")
+    this.autoPlay()
+    this.btnEvt();
+    this.dotEvt()
+};
+Carousel.prototype.autoPlay = function() {
+    var that = this;
+    this.timer = setInterval(function() {
+        that.item.css("display", "none")
+        that.dot.find("span").removeClass("active");
+        that.dot.find("span").eq(that.num).addClass("active")
+        that.item.eq(that.num).css("display", "block")
+        if (that.num == that.item.length - 1) {
+            that.num = -1;
+        }
+        that.num++;
+    }, 3000)
+}
+Carousel.prototype.dotEvt = function() {
+    var that = this;
+    this.dot.find("span").mouseover(function() {
+        clearInterval(that.timer)
+        that.dot.find("span").removeClass("active")
+        $(this).addClass("active");
+        that.item.css("display", "none")
+        that.item.eq($(this).index()).css("display", "block")
+        that.num = $(this).index()
+    })
+    this.dot.find("span").mouseleave(function() {
+        carousel.autoPlay()
+    })
+}
+Carousel.prototype.btnEvt = function() {
+    var that = this;
+    this.container.mouseover(function() {
+        that.container.find("button").css("display", "block")
+    });
+    this.container.mouseleave(function() {
+        that.container.find("button").css("display", "none")
+    })
+    this.prev.click(function() {
+        that.num--
+            that.item.css("display", "none")
+        that.item.eq(that.num).css("display", "block")
+        that.dot.find("span").removeClass("active")
+        that.dot.find("span").eq(that.num).addClass("active");
+    })
+    this.next.click(function() {
+        that.num++
+            that.item.css("display", "none")
+        that.item.eq(that.num).css("display", "block")
+        that.dot.find("span").removeClass("active")
+        that.dot.find("span").eq(that.num).addClass("active");
+    })
+}
+var carousel = new Carousel();
+carousel.init()</script>
+</body>
+</html>

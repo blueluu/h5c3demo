@@ -1,0 +1,55 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>js图片循环滚动-jq22.com</title>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<style>
+#test1 {
+	width:600px;
+	border:1px dashed red;
+	overflow:hidden;
+}
+</style>
+</head>
+<body>
+<div id="test1">
+  <table>
+    <tr>
+      <td id="m1"><table>
+          <tr>
+            <td><img src="http://www.jq22.com/img/6.png" /></td>
+            <td><img src="http://www.jq22.com/img/7.png" /></td>
+            <td><img src="http://www.jq22.com/img/8.png" /></td>
+            <td><img src="http://www.jq22.com/img/9.png" /></td>
+            <td><img src="http://www.jq22.com/img/10.png" /></td>
+          </tr>
+        </table>
+      <td id="m2"><table>
+          <tr>
+            <td><img src="http://www.jq22.com/img/10.png" /></td>
+            <td><img src="http://www.jq22.com/img/9.png" /></td>
+            <td><img src="http://www.jq22.com/img/8.png" /></td>
+            <td><img src="http://www.jq22.com/img/7.png" /></td>
+            <td><img src="http://www.jq22.com/img/6.png" /></td>
+          </tr>
+        </table>
+    </tr>
+  </table>
+</div> <script>
+window.onload = init;
+function init() {
+    m2.innerHTML = m1.innerHTML
+    var t = setInterval("run()", 10);
+}
+
+function run() {
+    if (test1.scrollLeft >= m1.clientWidth) {
+        test1.scrollLeft = 0;
+    } else {
+        test1.scrollLeft++;
+    }
+    // console.log(test1.scrollLeft, );
+}</script>
+</body>
+</html>

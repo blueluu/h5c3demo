@@ -1,0 +1,110 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>点击上传图片，同时设该图片为背景，模糊的哦-jq22.com</title>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<style>
+input {
+	display:block;
+	margin:0 auto;
+	opacity:0;
+	position:absolute;
+	width:100%;
+	height:100%;
+	top:0;
+	z-index:10;
+	cursor:pointer;
+}
+p {
+	font-size:14px;
+	line-height:100px;
+	position:absolute;
+	top:0;
+	left:8px;
+	z-index:5;
+	margin:0;
+}
+form {
+	margin:0;
+}
+.box {
+	width:100px;
+	height:100px;
+	border:1px solid #f60;
+	border-radius:50px;
+	margin:0 auto;
+	overflow:hidden;
+	position:relative;
+	text-align:center;
+}
+.big-box {
+	width:100%;
+	height:250px;
+	position:relative;
+	margin-top:10px;
+	overflow:hidden;
+	padding-top:150px;
+	border:1px solid #000000;
+}
+.bg-img {
+	position:absolute;
+	width:100%;
+	-webkit-filter:blur(50px);
+	z-index:-1;
+	top:0;
+}
+img {
+	width:100%;
+}
+</style>
+</head>
+<body>
+<div class="big-box">
+    <img id="imgPre" src="" class="bg-img" />
+    <form action="">
+        <div class="box">
+            <img id="imgPre_1" src="" />
+            <p>点击上传图片</p>
+            <input type="file" name="imgOne" id="imgOne" onchange="preImg(this.id,'imgPre');" />
+        </div>
+    </form>
+</div><script>
+/** 
+ * 从 file 域获取 本地图片 url 
+ */
+function getFileUrl(sourceId) {
+    var url;
+    if (navigator.userAgent.indexOf("MSIE") >= 1) { // IE 
+        url = document.getElementById(sourceId).value;
+    } else if (navigator.userAgent.indexOf("Firefox") > 0) { // Firefox 
+        url = window.URL.createObjectURL(document.getElementById(sourceId).files.item(0));
+    } else if (navigator.userAgent.indexOf("Chrome") > 0) { // Chrome 
+        url = window.URL.createObjectURL(document.getElementById(sourceId).files.item(0));
+    }
+    return url;
+};
+
+
+
+/** 
+ * 将本地图片 显示到浏览器上 
+ */
+function preImg(sourceId, targetId) {
+    var url = getFileUrl(sourceId);
+    var imgPre = document.getElementById(targetId);
+    imgPre.src = url;
+    imgPre_1.src = url;
+};
+
+
+$(function() {
+    $('input').click(function() {
+        $('p').hide();
+    });
+});
+/**  这里缺少，点击中间的圆圈，让文字隐藏的js，很简单的  **/
+
+/**  “点击上传头像”这几个字也可替换成icon图片，各位自己弄吧  **/</script>
+</body>
+</html>

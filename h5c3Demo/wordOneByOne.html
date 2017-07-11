@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>你会看到字一个一个出来</title>
+	<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+</head>
+<body>
+	<p id="word"></p>
+	<div style="display:none;" id="shi">
+		关雎
+
+			先秦：佚名
+
+			关关雎鸠，在河之洲。窈窕淑女，君子好逑。
+			参差荇菜，左右流之。窈窕淑女，寤寐求之。
+			求之不得，寤寐思服。悠哉悠哉，辗转反侧。
+			参差荇菜，左右采之。窈窕淑女，琴瑟友之。
+			参差荇菜，左右芼之。窈窕淑女，钟鼓乐之。
+	</div>
+</body>
+<script>
+	function showWord(){
+		var index = 0;
+		var timer = null;
+		var word = document.getElementById('shi').innerHTML;
+		function show(){
+			document.getElementById('word').innerText = word.substring(0,index++);
+			if(index==word.length) clearInterval(timer);
+		}
+		timer = setInterval(show,200);
+	}
+	showWord();
+</script>
+
+</html>

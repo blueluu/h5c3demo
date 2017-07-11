@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>简单的无缝滚动</title>
+	<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+</head>
+<style>
+	body,ul,li{
+		padding:0;
+		margin:0;
+	}
+	#box{
+		width:1000px;
+		height:auto;
+		border:1px solid black;
+		margin:0 auto;
+		overflow:hidden;
+
+	}
+	#box1,#box2{
+		width:1900px;
+	}
+	#box1 img,#box2 img{
+		width: 300px;
+		height:300px;
+		padding: 3px;
+		border:1px solid #ddd;
+		vertical-align: center;
+	}
+	ul{float:left;}
+	ul li{
+		text-decoration: none;
+		list-style:none;
+		float:left;
+		padding-right: 3px;
+	}
+</style>
+<body>
+	<div id="box">
+		<ul id="box1">
+			<li><img src="dist/images/1.jpg" alt=""></li>
+			<li><img src="dist/images/2.jpg" alt=""></li>
+			<li><img src="dist/images/3.jpg" alt=""></li>
+			<li><img src="dist/images/4.jpg" alt=""></li>
+			<li><img src="dist/images/5.jpg" alt=""></li>
+			<li><img src="dist/images/6.jpg" alt=""></li>
+		</ul>
+		<ul id="box2">
+			
+		</ul>
+	</div>
+</body>
+<script>
+	window.onload = init;
+	function init(){
+		$('#box2').html($('#box1').html());
+		var t = setInterval('run()',10);
+	}
+	function run(){
+		console.log($('#box').scrollLeft() )
+		console.log(box1.clientWidth )
+		if($('#box').scrollLeft() >= box1.clientWidth){
+
+			box.scrollLeft = 0;
+		}else{
+			box.scrollLeft++;
+		}
+	}
+</script>
+</html>

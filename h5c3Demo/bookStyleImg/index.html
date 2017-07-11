@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>翻书样式的图片</title>
+	<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+</head>
+<style>
+	*{
+		padding;:0;
+		margin:0;
+		font-size:50px;
+		cursor: pointer;
+		transition: all 4s;
+	}
+	.container{
+		display: flex;
+		width:100%;
+		min-height:100%;
+		/* 项目位于容器的中心。*/
+		justify-content: center;
+		/* 居中对齐弹性盒的各项 <div> 元素 */
+		align-items: center;
+		-webkit-perspective:1500px;
+		perspective: 1500px;
+		/* 设置或检索弹性盒模型对象的子元素排列方式 */
+		flex-flow: column;
+	}
+	.photos{
+		width:800px;
+		height: 580px;
+		background-color: #f5deb3;
+		border-radius: 10px;
+		box-shadow: 3px 3px 3px rgba(255,20,90,0.7);
+		transform-style: preserve-3d;
+		z-index: 0;
+	}
+	.photos div{
+		z-index: 999;
+		transform-origin: right;
+		position: absolute;
+		width: 380px;
+		height:540px;
+		left: 20px;
+		top:20px;
+		background-color: black;
+		border-radius: 10px 0 0 10px;
+	}
+	.img img{
+		width:375px;
+		height:530px;
+		margin-left: 5px;
+		margin-top:5px;
+		background-color:rgba(255,255,255,0.5);
+	}
+	.tools{
+		width:300px;
+		height:100px;
+		margin:0 auto;
+		display: flex;
+		display: -webkit-flex;
+		justify-content: space-around;
+	}
+	.tools>div{
+		width:50px;
+		height:50px;
+		text-align: center;
+		line-height: 50px;
+		border-radius: 50px;
+		border:1px solid grey;
+		box-shadow: 3px 3px 3px grey;
+		position: relative;
+		margin-top: 10px;
+	}
+	.add .f{
+		opacity: 0;
+		position: absolute;
+		top:0;
+		left: 0;
+		width:50px;
+		height: 50px;
+		border-radius: 25px;
+	}
+</style>
+<body>
+	<div class="container">
+		<div class="photos">
+			<div class="img left">
+				<img src="dist/img/2.jpg" alt="">
+			</div>
+			<div class="img left">
+				<img src="dist/img/3.jpg" alt="">
+			</div>
+			<div class="img left">
+				<img src="dist/img/4.jpg" alt="">
+			</div>
+			<div class="img left">
+				<img src="dist/img/5.jpg" alt="">
+			</div>
+			<div class="img left">
+				<img src="dist/img/6.jpg" alt="">
+			</div>
+		</div>
+		<div class="tools">
+			<div class="Page_up"><</div>
+			<div class="Page_down">></div>
+			<div class="add">+<input type="file" name='f' id='f' class='f'></div>
+			<div class="del">-</div>
+		</div>
+	</div>	
+</body>
+<script>
+	$(function(){
+		var count_down = 0;
+		var count_up = 0;
+		function getObjectURL(file){
+			var url = null;
+			if(window.createObjectURL != undefined){
+				url = window.createObjectURL(file);
+			}else if(window.URL != undefined){
+				url = window.URL.createObjectURL(file);
+			}else if(window.webkitURL != undefined){
+				url = window.webkitURL.createObjectURL(file);
+			}
+			return url;
+		}
+		$('.add .f').change(function(){
+			var strurl = getObjectURL(this.files[0]);
+			var tip = $("<div class='img left'><img src='' alt=''></div>");
+			if($('div[class="img left"]:last').length != 0){
+				tip.insertAfter('div[class="img left"]:last');
+			}else{
+				tip.prependTo('.photos');
+			}
+			$('div[class="img left"]:last img').attr('src',strurl);
+			count_up++;
+			var angle = 20 + count_up;
+			$('div[class="img left"]:last').css('transform','rotateY('+angle+'deg');
+		});
+		$('.Page_down').click(function(){
+			if($('div[class="img left"]:last').length != 0){
+				if(count_up != 0){
+					count_up--;
+				}
+				var angle = 160 - count_down;
+				$('div[class="img left"]:last').removeClass('left').addClass('right').css('transform','rotateY('+angle+'deg)');
+				count_down++;
+			}else{
+				alert('已到达首页');
+			}
+		});
+		$('.Page_up').click(function(){
+			if($('div[class="img right"]:first').length != 0){
+				if(count_down!=0){
+					count_down--;
+				}
+				var angle = 20 + count_up;
+				$('div[class="img right"]:first').removeClass('right').addClass('left').css('transform','rotateY('+angle+'deg)');
+				count_up++;
+			}else{
+				alert('已到达最后一页');
+			}
+		});
+		$('.del').click(function(){
+			if($('div[class="img left"]:last').length != 0){
+				var i = confirm('确认删除');
+				if(!!i){
+					$('div[class="img left"]:last').remove();
+					if(count_up != 0){
+						count_up--;
+					}
+				}
+			}else{
+				alert('提示：设定为删除左侧最上方图片' + '\n' + '左侧无图片！')
+			}
+		})
+	});
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

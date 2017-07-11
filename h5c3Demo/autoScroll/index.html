@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>无缝轮播</title>
+	<script src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+	<style>
+		body,ul,li,a,img{
+			padding:0;
+			margin:0;
+		}
+		#box{
+			width:1000px;
+			height:500px;
+			margin:0 auto;
+			overflow:hidden;
+			position: relative;
+		}
+		ul.imageBox{
+			width:10000px;
+			position: absolute;
+			left:0px;
+			bottom:0;
+		}
+		ul.imageBox li{
+			list-style: none;
+			float: left;
+		}
+		ul.imageBox li img{
+			width:1000px;
+			height:600px;
+		}
+		ul.dotBox{
+			position: absolute;
+			bottom: 10px;
+			right:20px;
+		}
+		ul.dotBox li{
+			list-style: none;
+			float: left;
+			margin-right: 8px;
+		}
+		ul.dotBox li b{
+			 display: inline-block;
+			 width:16px;
+			 height: 16px;
+			 border-radius: 16px;
+			 background: transparent;
+			 border:1px solid black;
+		}
+		ul.dotBox li b:hover{
+			 cursor: pointer;
+			 background: #fff;
+			 border:1px solid transparent;
+		}
+		#active{
+			 background-color: #fff;
+			 border-color:transparent;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<ul class="imageBox">
+			<li><img src="dist/images/1.jpg" alt=""></li>
+			<li><img src="dist/images/2.jpg" alt=""></li>
+			<li><img src="dist/images/3.jpg" alt=""></li>
+			<li><img src="dist/images/4.jpg" alt=""></li>
+			<li><img src="dist/images/5.jpg" alt=""></li>
+			<li><img src="dist/images/6.jpg" alt=""></li>
+		</ul>	
+		<ul class="dotBox">
+		</ul>
+	</div>
+</body>
+<script>
+	function Carousel(){
+		this.liImg = $('.imageBox li');
+		this.w = this.liImg.find('img').width();
+		this.len = $('.imageBox li').length;
+		this.ulImg = $('.imageBox');
+		this.dotBox = $('.dotBox');
+		// 动态生成下方dot的数量
+		for(var i=0;i<this.len;i++){
+			$dotChild = '<li><b data-index='+i+'></b></li>';
+			this.liImg.eq(i).find('img').attr('data-index',i);
+			this.dotBox.append($dotChild);
+		}
+		this.num = 0;
+		this.timer = null;
+	}
+	Carousel.prototype.init = function(){
+		this.dotBox.find('li:first-child').find('b').attr('id','active');
+		this.autoPlay();
+		this.dotEvt();
+		this.imgEvt();
+	}
+	Carousel.prototype.autoPlay = function(num){
+		var that = this;
+		if(num!=undefined){
+			that.num = num;
+		}
+		this.timer = setInterval(function(){
+			that.ulImg.css('left',-(that.num*that.w));
+			that.dotBox.find('li').find('b').attr('id','');
+			that.dotBox.find('li').eq(that.num).find('b').attr('id','active');
+			if(that.num == that.len-1){
+				that.num = -1;
+			}
+			that.num++;
+		},1000);
+	}
+	Carousel.prototype.dotEvt = function(){
+		var that = this;
+		this.dotBox.find('b').mouseover(function(){
+			var imgIndex = $(this).attr('data-index');
+			clearInterval(that.timer);
+			that.dotBox.find('li').find('b').attr('id','');
+			that.ulImg.css('left',-(imgIndex*that.w));
+		});
+		this.dotBox.find('b').mouseleave(function(){
+			var imgIndex = $(this).attr('data-index');
+			that.dotBox.find('li').eq(imgIndex).find('b').attr('id','active');
+			that.autoPlay(imgIndex);
+		});
+	}
+	Carousel.prototype.imgEvt = function(){
+		var that = this;
+		this.liImg.find('img').mouseover(function(){
+			var imgIndex = $(this).attr('data-index');
+			clearInterval(that.timer);
+			that.dotBox.find('li').eq(imgIndex).find('b').attr('id','active');
+		});
+		this.liImg.find('img').mouseleave(function(){
+			var imgIndex = $(this).attr('data-index');
+			that.autoPlay(imgIndex);
+		});
+	}
+	var Carousel = new Carousel();
+	Carousel.init();
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

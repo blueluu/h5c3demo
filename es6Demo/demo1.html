@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>es6 demo</title>
+	<script src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+</head>
+<body>
+	<div>es6 兼容性测试</div>
+	<div class="evens"></div>
+	<div class="fives"></div>
+</body>
+<script>
+	let evens = [1,2,3,4,5,6,7,8,9,0];
+	let fives = [];
+	let odds = evens.map(v => v+1);
+	let nums = evens.map((v,i)=>v+i);
+
+	nums.forEach(v=>{
+		if(v % 5 === 0){
+			fives.push(v);
+		}
+	});
+	$('.evens').html(nums);
+	$('.fives').html(fives);
+	console.log(nums,fives);
+</script>
+</html>

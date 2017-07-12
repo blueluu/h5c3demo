@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>es6 demo</title>
+</head>
+<body>
+	
+</body>
+<script>
+	var evens = [1,2,3,4,5,6,7,8,9,0];
+	var fives = [];
+	var odds = evens.map(v => v+1);
+	var nums = evens.map((v,i)=>v+i);
+
+	nums.forEach(v=>{
+		if(v % 5 === 0){
+			fives.push(v);
+		}
+	});
+	console.log(nums,fives);
+</script>
+</html>

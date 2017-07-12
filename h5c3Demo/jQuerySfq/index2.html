@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>手风琴效果轮播图</title>
+</head>
+<style>
+	*{
+		border:0;
+		margin:0;
+	}
+	body,html{
+		width:100%;
+		height: 100%;
+	}
+	.bg{
+		position: absolute;
+		top:0;
+		left:0;
+		width: 100%;
+		height:100%;
+	}
+	.bg-box-1{
+		background: url('img/1.jpg') no-repeat center/cover;
+	}
+	.bg-box-2{
+		background: url('img/2.jpg') no-repeat center/cover;
+	}
+	.bg-box-3{
+		background: url('img/3.jpg') no-repeat center/cover;
+	}
+	.bg-box-4{
+		background: url('img/4.jpg') no-repeat center/cover;
+	}
+	#box{
+		width:70%;
+		height:60%;
+		margin:0 auto;
+	}
+	ul li{
+		text-decoration: none;
+		list-style: none;
+		float:left;
+	}
+</style>
+<body>
+	<div class="bg bg-box-1"></div>
+	<div class="bg bg-box-2"></div>
+	<div class="bg bg-box-3"></div>
+	<div class="bg bg-box-4"></div>
+	<div id="box">
+		<ul>
+			<li>
+				<div class="text">
+					<p>暮光之城</p>
+				</div>
+			</li>
+			<li>
+				<div class="text">
+					<p>暮光之城2</p>
+				</div>
+			</li>
+			<li>
+				<div class="text">
+					<p>暮光之城3</p>
+				</div>
+			</li>
+			<li>
+				<div class="text">
+					<p>暮光之城4</p>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+	<script>
+		
+	</script>
+</body>
+</html>
